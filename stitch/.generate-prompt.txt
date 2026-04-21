@@ -1,0 +1,224 @@
+# Sayaç Uygulaması — Ürün Gereksinimleri Dokümanı (PRD)
+
+## 1. Genel Bakış
+
+Sayaç, kullanıcıların günlük sayım işlemlerini takip edebilecekleri basit ama işlevsel bir web uygulamasıdır. Artır, azalt ve sıfırla aksiyonları ile sayaç değerini değiştirir; her değişiklik anında geçmişe kaydedilir ve son 10 işlem listelenir. Koyu/açık tema desteği ile kullanıcı kendi görsel tercihini belirleyebilir. Türkçe arayüz ile yerel kullanıcılara hitap eder.
+
+Hedef kitle: Günlük görevlerini takip etmek isteyen, hafif ve hızlı bir araç arayan kullanıcılar. Kurulum gerektirmeyen, tarayıcıda çalışan bir utility olarak tasarlanmıştır.
+
+## 2. Hedefler
+
+- Kullanıcı sayaç değerini birer birer artırabilir ve azaltabilir.
+- Kullanıcı sayaç değerini sıfırlayabilir (0'a geri döndürme).
+- Her artır/azalt/sıfırla işlemi geçmişe kaydedilir.
+- Son 10 değişiklik kronolojik olarak listelenir (en yenisi üstte).
+- Koyu/açık tema toggle'ı ile görsel tercih değiştirilebilir.
+- Tema tercihi tarayıcıda localStorage ile kalıcı olarak saklanır.
+- İlk yükleme süresi 2 saniyeden kısa olmalıdır.
+- Mobil uyumlu responsive tasarım (320px–1920px).
+- Tüm interactive elementlerde klavye erişimi ve odak göstergesi sağlanır.
+
+## 3. Tech Stack Detayı
+
+- **Framework:** React 18.x
+- **Build:** Vite 5.x (HMR, fast refresh)
+- **Language:** TypeScript 5.x (strict mod)
+- **Styling:** Tailwind CSS 3.x (JIT, arbitrary values)
+- **State:** React useState + useReducer (tek component için yeterli, Redux/Zustand gereksiz)
+- **Storage:** localStorage (tema tercihi ve sayaç geçmişi için)
+- **Routing:** Yok (SPA tek sayfa)
+- **Icons:** Lucide React (SVG tabanlı, Tree-shakable)
+- **Fonts:** System font stack (font-family: ui-sans-serif, system-ui, sans-serif)
+
+## 4. Fonksiyonel Gereksinimler
+
+### 4.1 Sayaç Görüntüleme ve Kontrol
+
+- **Mevcut değer:** Sayacın o anki değeri büyük fontla ekranda görüntülenir.
+- **Artır butonu:** "+1" aksiyonu tetikler, değeri 1 artırır. Negatif değerlere izin verilir (sınır yok).
+- **Azalt butonu:** "-1" aksiyonu tetikler, değeri 1 azaltır.
+- **Sıfırla butonu:** Değeri 0'a ayarlar. Onay gerektirmez (hızlı işlem).
+- **Buton durumları:** Disabled yok — tüm aksiyonlar her zaman erişilebilir.
+- **Hata durumu:** Uygulama localStorage hatası verirse kullanıcıya "Veriler kaydedilemedi" toast mesajı gösterilir.
+
+### 4.2 Geçmiş Listesi
+
+- **Kapasite:** En son 10 değişiklik gösterilir (FIFO — en eski silinir).
+- **Kayıt formatı:** Her kayıt; aksiyon tipi ("Artırıldı", "Azaltıldı", "Sıfırlandı"), eski değer → yeni değer, ve timestamp içerir.
+- **Zaman damgası formatı:** Türkçe gösterim — "21 Nis 2026, 19:38" şeklinde.
+- **Boş durum:** Hiç işlem yapılmamışsa "Henüz işlem yapılmadı." mesajı görünür.
+- **Liste yönü:** En yeni en üstte.
+
+### 4.3 Dark Mode Toggle
+
+- **Toggle butonu:** Ekranın sağ üst köşesinde görünür. Ay ve güneş ikonu ile temsil edilir.
+- **Tema durumları:** "Açık" (light) ve "Koyu" (dark) olmak üzere iki durum.
+- **İlk açılış:** Tarayıcıda kayıtlı tema varsa o, yoksa sistem tercihi (prefers-color-scheme), yoksa açık tema.
+- **Değişim:** Anında, fade geçiş animasyonu ile (200ms transition).
+- **Kalıcılık:** Seçilen tema localStorage'da "theme" anahtarıyla saklanır.
+
+### 4.4 Data Persistence
+
+- **Saklanan veriler:** Sayaç değeri (number), geçmiş dizisi (array), tema tercihi (string).
+- **Key'ler:** "counter-value" (number), "counter-history" (JSON array), "counter-theme" ("light"|"dark").
+- **Okuma:** Uygulama başladığında localStorage'dan yüklenir; yoksa default değerler atanır.
+- **Yazma:** Her değişiklik sonrası anında localStorage'a kaydedilir.
+
+## 5. Veri Modeli
+
+### Entity: CounterState
+```
+value: number          // Mevcut sayaç değeri, default: 0
+history: HistoryEntry[] // Değişiklik geçmişi, max 10 kayıt
+theme: 'light' | 'dark' // Aktif tema, default: 'light'
+```
+
+### Entity: HistoryEntry
+```
+action: 'increment' | 'decrement' | 'reset'
+oldValue: number
+newValue: number
+timestamp: number       // Unix timestamp (ms)
+```
+
+### LocalStorage Schema
+```
+Key: "counter-value" → Value: "0" (string)
+Key: "counter-history" → Value: JSON array of HistoryEntry
+Key: "counter-theme" → Value: "light" | "dark"
+```
+
+## 6. UI/UX Gereksinimler
+
+### 6.1 Design System — Playful
+
+**Aesthetic:** Playful — yumuşak köşeler, canlı renkler, minimal gölgeler. Kullanıcıya pozitif hissettirmeyi hedefler.
+
+**Renk Paleti:**
+
+| Role       | Light Mode | Dark Mode  |
+|------------|------------|------------|
+| Background | #F8FAFC    | #0F172A    |
+| Surface    | #FFFFFF    | #1E293B    |
+| Primary    | #6366F1    | #818CF8    |
+| Secondary  | #EC4899    | #F472B6    |
+| Text       | #1E293B    | #F1F5F9    |
+| Text Muted | #64748B    | #94A3B8    |
+| Border     | #E2E8F0    | #334155    |
+| Success    | #22C55E    | #4ADE80    |
+| Error      | #EF4444    | #F87171    |
+| Warning    | #F59E0B    | #FBBF24    |
+
+**Tipografi:**
+
+| Role     | Font                    | Size/Weight         |
+|----------|-------------------------|---------------------|
+| Display  | System UI Sans          | 64px / 700 (counter)|
+| Heading  | System UI Sans          | 24px / 600          |
+| Body     | System UI Sans          | 16px / 400          |
+| Caption  | System UI Sans          | 12px / 400          |
+
+**Icon Library:** Lucide React (Ay: Moon, Güneş: Sun, Artı: Plus, Eksi: Minus, Sıfırla: RotateCcw)
+
+### 6.2 Spacing & Components
+
+**Spacing Scale:** 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 px
+
+**Border Radius:** 8px (butonlar), 12px (kartlar), 16px (container)
+
+**Shadows:**
+- Surface (card): `0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06)`
+- Elevated: `0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06)`
+
+**Buton Patternları:**
+```
+Primary: bg-primary, text-white, rounded-lg, px-6 py-3, hover:opacity-90, active:scale-95
+Secondary: bg-surface, text-primary, border border-primary, rounded-lg
+Ghost: transparent, text-text-muted, hover:bg-surface
+```
+
+**Kart Patternları:** bg-surface, rounded-xl, shadow-sm, p-6
+
+### 6.3 Responsive Breakpoints
+
+- Mobile: < 640px — dikey layout, tam genişlik butonlar
+- Tablet: 640px–1024px — yatay layout, iki sütun
+- Desktop: > 1024px — max-width: 640px, ortalanmış
+
+## 7. Non-Functional Requirements
+
+### 7.1 Performans
+
+- **İlk yükleme:** < 2 saniye (Lighthouse >= 90)
+- **Time to Interactive:** < 1.5 saniye
+- **Bundle hedefi:** < 100KB gzipped (sadece React + Tailwind)
+- **HMR:** Vite ile anlık yenileme, geliştirici deneyimi hızlı
+
+### 7.2 Erişilebilirlik (WCAG 2.1 AA)
+
+- Tüm butonlar `aria-label` ile açıklanır ("Sayacı artır", "Sayacı azalt", "Sayacı sıfırla", "Temayı değiştir")
+- Sayacın mevcut değeri `aria-live="polite"` ile duyurulur
+- Focus state: 2px offset outline, primary renk
+- Kontrast oranı: metin >= 4.5:1, büyük metin >= 3:1
+- Touch hedefleri: minimum 44x44px
+- Klavye navigasyonu: Tab ile tüm interactive elementlere erişim, Enter/Space ile tetikleme
+
+### 7.3 Tarayıcı Desteği
+
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- iOS Safari 14+, Android Chrome 90+
+- localStorage destekli tüm modern tarayıcılar
+- Progressive enhancement: localStorage yoksa sadece session'da çalışır (kullanıcıya bilgi verilmez)
+
+## 8. Proje Yapısı
+
+```
+src/
+├── components/
+│   ├── Counter.tsx        # Sayaç değeri ve kontrol butonları
+│   ├── History.tsx        # Son 10 değişiklik listesi
+│   ├── ThemeToggle.tsx    # Koyu/açık tema toggle butonu
+│   └── Toast.tsx          # Kısa mesaj gösterimi (hata/toast)
+├── hooks/
+│   ├── useCounter.ts      # Sayaç state ve history yönetimi
+│   └── useTheme.ts        # Tema değişimi ve localStorage
+├── utils/
+│   └── storage.ts         # localStorage get/set helper
+├── types/
+│   └── index.ts           # TypeScript tipleri (HistoryEntry, Theme)
+├── App.tsx                # Ana uygulama bileşeni
+├── main.tsx               # Entry point
+└── index.css              # Tailwind base + custom CSS
+```
+
+## 9. Window State (testing/dogfood)
+
+```typescript
+window.app = {
+  state: 'idle' | 'loading',
+  counter: number,
+  history: HistoryEntry[],
+  theme: 'light' | 'dark',
+  version: '1.0.0'
+}
+```
+
+## 10. Ekranlar
+
+| # | Ekran Adı              | Tür          | Açıklama                                                                 |
+|---|------------------------|--------------|--------------------------------------------------------------------------|
+| 1 | Ana Sayfa (Sayaç)       | main-view    | Sayacın mevcut değeri, artır/azalt/sıfırla butonları, tema toggle       |
+| 2 | Geçmiş Paneli          | list-view    | Son 10 değişikliğin listesi; aksiyon, eski→yeni değer, zaman damgası    |
+| 3 | Boş Durum (Geçmiş)      | empty-state  | Hiç işlem yapılmadığında gösterilen "Henüz işlem yapılmadı." mesajı     |
+| 4 | Toast Bildirimi         | notification | localStorage hatası veya işlem onayı için geçici mesaj kutusu           |
+
+Generate a SEPARATE screen design for EVERY page, view, modal, dialog, tab panel, and settings screen described in this PRD. Do NOT skip ANY screen — even if it seems minor.
+
+MANDATORY SCREENS:
+- If the PRD mentions "settings" or "ayarlar" → generate a Settings screen
+- If the PRD mentions tabs or bottom navigation → generate EACH tab view as a separate screen
+- If the PRD mentions modals (statistics, help, share, confirmation) → generate each as a separate screen
+- If the PRD mentions error states, empty states, loading states → generate those too
+- Generate at least as many screens as there are distinct views/pages/modals in the PRD
+
+All visible text must be in Turkish. Use a dark, modern theme.

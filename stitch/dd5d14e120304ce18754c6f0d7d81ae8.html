@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sayıcı</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline-variant": "#abadaf",
+                        "surface-tint": "#4647d3",
+                        "on-tertiary": "#ffeef4",
+                        "tertiary-dim": "#882a69",
+                        "surface-dim": "#d0d5d8",
+                        "surface-container-low": "#eef1f3",
+                        "inverse-primary": "#8083ff",
+                        "surface": "#f5f7f9",
+                        "on-tertiary-container": "#63054a",
+                        "error-dim": "#a70138",
+                        "tertiary-fixed": "#ff8ed2",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#ffc1d6",
+                        "primary-dim": "#3939c7",
+                        "primary-container": "#9396ff",
+                        "on-error-container": "#510017",
+                        "on-tertiary-fixed-variant": "#6e1354",
+                        "on-background": "#2c2f31",
+                        "primary-fixed-dim": "#8387ff",
+                        "primary-fixed": "#9396ff",
+                        "on-surface": "#2c2f31",
+                        "surface-variant": "#d9dde0",
+                        "on-primary-fixed-variant": "#0e009d",
+                        "surface-container": "#e5e9eb",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-container-high": "#dfe3e6",
+                        "on-secondary": "#ffeff2",
+                        "on-primary": "#f4f1ff",
+                        "surface-bright": "#f5f7f9",
+                        "on-error": "#ffefef",
+                        "on-tertiary-fixed": "#3b002b",
+                        "on-secondary-fixed": "#6b003e",
+                        "secondary": "#b00d6a",
+                        "on-secondary-fixed-variant": "#9e005e",
+                        "secondary-fixed-dim": "#ffaccb",
+                        "tertiary-fixed-dim": "#ef81c4",
+                        "background": "#f5f7f9",
+                        "tertiary-container": "#ff8ed2",
+                        "on-primary-container": "#0a0081",
+                        "surface-container-highest": "#d9dde0",
+                        "secondary-fixed": "#ffc1d6",
+                        "tertiary": "#963776",
+                        "outline": "#747779",
+                        "on-surface-variant": "#595c5e",
+                        "error": "#b41340",
+                        "secondary-dim": "#9d005d",
+                        "primary": "#4647d3",
+                        "error-container": "#f74b6d",
+                        "on-secondary-container": "#8e0054",
+                        "inverse-surface": "#0b0f10",
+                        "on-primary-fixed": "#000000"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar from JSON -->
+<header class="bg-[#f5f7f9] docked full-width top-0 z-40 relative">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<h1 class="text-2xl font-bold tracking-tight text-[#2c2f31] uppercase">Sayıcı</h1>
+<div class="flex items-center gap-2">
+<button class="text-[#6366F1] hover:bg-[#eef1f3] rounded-full p-2 transition-colors scale-95 duration-200 focus:outline-none focus:ring-2 focus:ring-primary/40">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">contrast</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-6 pb-32 w-full max-w-lg mx-auto relative">
+<!-- Ambient Background Playful Shapes -->
+<div class="absolute top-1/4 left-1/4 w-72 h-72 bg-tertiary-container rounded-full mix-blend-multiply filter blur-3xl opacity-30 -z-10 animate-pulse" style="animation-duration: 8s;"></div>
+<div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-40 -z-10 animate-pulse" style="animation-duration: 10s; animation-delay: 2s;"></div>
+<!-- Center Counter Display -->
+<div class="w-full relative z-10 flex flex-col items-center mt-[-5vh]">
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-12 flex flex-col items-center w-full shadow-[0_24px_48px_-12px_rgba(70,71,211,0.08)] relative overflow-hidden">
+<h2 class="text-label-md font-bold tracking-widest text-on-surface-variant mb-8 uppercase">Günlük Takip</h2>
+<div class="flex flex-col items-center justify-center">
+<span class="text-[96px] leading-[0.8] font-extrabold tracking-[-0.04em] text-on-surface">42</span>
+</div>
+<span class="text-body-md text-on-surface-variant mt-6 font-medium">Adet</span>
+</div>
+</div>
+<!-- Interactive Controls -->
+<div class="w-full relative z-10 mt-10 flex flex-col gap-8 px-2">
+<!-- Increment / Decrement Row -->
+<div class="flex items-center justify-center gap-6 w-full">
+<!-- Decrement Action -->
+<button class="bg-surface-container-low text-primary hover:bg-surface-container-high transition-colors rounded-3xl w-20 h-24 flex flex-col items-center justify-center shadow-[0_8px_16px_-4px_rgba(70,71,211,0.06)] active:scale-90 duration-200 focus:outline-none focus:ring-2 focus:ring-primary/40">
+<span class="material-symbols-outlined text-4xl mb-1">remove</span>
+<span class="text-label-md font-bold text-on-surface-variant">-1</span>
+</button>
+<!-- Primary Increment Action -->
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary hover:opacity-90 transition-all rounded-[2.5rem] flex-grow h-32 flex flex-col items-center justify-center shadow-[0_16px_32px_-8px_rgba(70,71,211,0.25)] active:scale-95 duration-200 focus:outline-none focus:ring-4 focus:ring-primary-container/50 relative overflow-hidden group">
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+<span class="material-symbols-outlined text-6xl mb-1" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="text-body-md font-bold opacity-90 tracking-wide">+1</span>
+</button>
+</div>
+<!-- Asymmetric Reset Action -->
+<div class="flex justify-end w-full pr-4 mt-2">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-error transition-colors px-5 py-3 rounded-full hover:bg-surface-container-low active:scale-95 duration-200 focus:outline-none focus:ring-2 focus:ring-outline-variant/40">
+<span class="material-symbols-outlined text-xl">refresh</span>
+<span class="text-body-md font-semibold tracking-wide">Sıfırla</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar from JSON -->
+<nav class="bg-white/80 backdrop-blur-xl docked full-width bottom-0 rounded-t-3xl shadow-[0_-12px_32px_-4px_rgba(99,102,241,0.08)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 md:hidden">
+<!-- Active Tab: Sayaç -->
+<a class="flex flex-col items-center justify-center bg-[#6366F1]/10 text-[#6366F1] rounded-2xl px-8 py-3 hover:scale-105 transition-transform active:scale-90 duration-200 w-24" href="#">
+<span class="material-symbols-outlined mb-1 text-[28px]" style="font-variation-settings: 'FILL' 1;">plus_one</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[12px] font-bold tracking-wide uppercase">Sayaç</span>
+</a>
+<!-- Inactive Tab: Geçmiş -->
+<a class="flex flex-col items-center justify-center text-[#abadaf] hover:text-[#64748b] px-8 py-3 hover:scale-105 transition-transform active:scale-90 duration-200 w-24" href="#">
+<span class="material-symbols-outlined mb-1 text-[28px]">history</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[12px] font-bold tracking-wide uppercase">Geçmiş</span>
+</a>
+</nav>
+</body></html>

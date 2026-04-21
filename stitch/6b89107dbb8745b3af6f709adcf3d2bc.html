@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sayıcı - Geçmiş (Boş)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#abadaf",
+                        "surface-tint": "#4647d3",
+                        "on-tertiary": "#ffeef4",
+                        "tertiary-dim": "#882a69",
+                        "surface-dim": "#d0d5d8",
+                        "surface-container-low": "#eef1f3",
+                        "inverse-primary": "#8083ff",
+                        "surface": "#f5f7f9",
+                        "on-tertiary-container": "#63054a",
+                        "error-dim": "#a70138",
+                        "tertiary-fixed": "#ff8ed2",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#ffc1d6",
+                        "primary-dim": "#3939c7",
+                        "primary-container": "#9396ff",
+                        "on-error-container": "#510017",
+                        "on-tertiary-fixed-variant": "#6e1354",
+                        "on-background": "#2c2f31",
+                        "primary-fixed-dim": "#8387ff",
+                        "primary-fixed": "#9396ff",
+                        "on-surface": "#2c2f31",
+                        "surface-variant": "#d9dde0",
+                        "on-primary-fixed-variant": "#0e009d",
+                        "surface-container": "#e5e9eb",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-container-high": "#dfe3e6",
+                        "on-secondary": "#ffeff2",
+                        "on-primary": "#f4f1ff",
+                        "surface-bright": "#f5f7f9",
+                        "on-error": "#ffefef",
+                        "on-tertiary-fixed": "#3b002b",
+                        "on-secondary-fixed": "#6b003e",
+                        "secondary": "#b00d6a",
+                        "on-secondary-fixed-variant": "#9e005e",
+                        "secondary-fixed-dim": "#ffaccb",
+                        "tertiary-fixed-dim": "#ef81c4",
+                        "background": "#f5f7f9",
+                        "tertiary-container": "#ff8ed2",
+                        "on-primary-container": "#0a0081",
+                        "surface-container-highest": "#d9dde0",
+                        "secondary-fixed": "#ffc1d6",
+                        "tertiary": "#963776",
+                        "outline": "#747779",
+                        "on-surface-variant": "#595c5e",
+                        "error": "#b41340",
+                        "secondary-dim": "#9d005d",
+                        "primary": "#4647d3",
+                        "error-container": "#f74b6d",
+                        "on-secondary-container": "#8e0054",
+                        "inverse-surface": "#0b0f10",
+                        "on-primary-fixed": "#000000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"],
+                        "label": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#0f172a] text-slate-100 min-h-screen flex flex-col font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar (From JSON) -->
+<header class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto docked full-width top-0 bg-[#0f172a] font-['Plus_Jakarta_Sans'] text-slate-100 tonal-shift no-border flat no shadows z-40 relative">
+<div class="flex items-center gap-4">
+<h1 class="text-2xl font-bold tracking-tight text-white uppercase font-headline">Sayıcı</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-800 transition-colors scale-95 duration-200 text-[#9396ff] flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="contrast" style="font-variation-settings: 'FILL' 0;">contrast</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas - Empty State -->
+<main class="flex-grow flex flex-col items-center justify-center p-6 pb-32 w-full max-w-md mx-auto relative z-10">
+<!-- Playful Background Accents -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none z-[-1]">
+<div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="absolute bottom-1/3 right-1/4 w-48 h-48 bg-secondary-container/10 rounded-full blur-2xl"></div>
+</div>
+<div class="bg-[#1e293b] p-10 rounded-[2rem] flex flex-col items-center text-center shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5)] w-full border border-white/5 relative overflow-hidden group">
+<!-- Subtle gradient overlay on card -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+<!-- Empty State Icon Container with kinetic feel -->
+<div class="w-32 h-32 rounded-full bg-slate-800/80 mb-8 flex items-center justify-center relative shadow-inner">
+<div class="absolute inset-0 rounded-full border border-white/10 scale-105"></div>
+<div class="absolute inset-0 rounded-full border border-primary/20 scale-110 opacity-50"></div>
+<span class="material-symbols-outlined text-6xl text-[#9396ff] opacity-80 rotate-[-5deg] group-hover:rotate-[5deg] group-hover:scale-110 transition-all duration-300 ease-out" data-icon="history_toggle_off" style="font-variation-settings: 'FILL' 1;">history_toggle_off</span>
+</div>
+<h2 class="font-headline text-[24px] font-semibold text-white mb-3">Henüz İşlem Yok</h2>
+<p class="font-body text-[14px] text-slate-400 mb-10 max-w-[250px] leading-relaxed">Geçmiş liste boş. Saymaya başlayarak burada kayıtlarınızı görebilirsiniz.</p>
+<!-- Playful CTA Button -->
+<button class="relative bg-gradient-to-br from-[#4647d3] to-[#9396ff] text-white font-headline text-[16px] font-bold py-4 px-10 rounded-[1.5rem] shadow-[0_12px_32px_-4px_rgba(70,71,211,0.3)] hover:scale-95 hover:shadow-[0_8px_24px_-4px_rgba(70,71,211,0.4)] transition-all duration-200 active:scale-90 overflow-hidden w-full max-w-[280px]">
+<span class="relative z-10 flex items-center justify-center gap-2">
+                    Saymaya Başla
+                    <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</span>
+<!-- Shimmer effect -->
+<div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-[shimmer_1.5s_infinite]"></div>
+</button>
+</div>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#0f172a]/80 backdrop-blur-xl docked full-width rounded-t-3xl font-['Plus_Jakarta_Sans'] text-[12px] font-bold tracking-wide uppercase tonal-shift on surface-container-low shadow-[0_-12px_32px_-4px_rgba(99,102,241,0.08)] border-t border-white/5 md:hidden">
+<!-- Inactive Tab -->
+<a class="flex flex-col items-center justify-center text-[#64748b] px-6 py-2 hover:scale-105 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="plus_one" style="font-variation-settings: 'FILL' 0;">plus_one</span>
+<span>Sayaç</span>
+</a>
+<!-- Active Tab (Geçmiş) -->
+<a class="flex flex-col items-center justify-center bg-[#6366F1]/20 text-[#9396ff] rounded-2xl px-6 py-2 Active: scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="history" style="font-variation-settings: 'FILL' 1;">history</span>
+<span>Geçmiş</span>
+</a>
+</nav>
+</body></html>
